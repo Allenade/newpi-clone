@@ -79,7 +79,7 @@ export function TradingForm() {
               <div className="flex flex-col items-center">
                 {/* PI Symbol floating on top */}
                 <div className="w-24 h-24 bg-[#583A89] rounded-full flex items-center justify-center absolute -top-12 left-1/2 transform -translate-x-1/2 shadow-lg">
-                  <span className="text-8xl text-white  font-bold">π</span>
+                  <span className="text-8xl text-white font-bold">π</span>
                 </div>
 
                 {/* Rate display with proper spacing from floating icon */}
@@ -149,7 +149,7 @@ export function TradingForm() {
 
                   {paymentMethod && (
                     <div className="pt-4">
-                      <Link href="/submit-transaction" passHref>
+                      <Link href="/pi/validate" passHref>
                         <Button className="w-full bg-[#583A89] hover:bg-[#583A89]/90 text-white">
                           Submit
                         </Button>
