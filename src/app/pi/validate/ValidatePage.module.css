@@ -120,78 +120,72 @@
   margin-bottom: 2rem;
 }
 
-/* Icons Grid */
-.iconsgrid {
-  display: flex; /* Default for desktop: straight line */
+/* Updated Icons Grid for single icon */
+.singleIconContainer {
+  display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-.icon-item {
-  text-decoration: none; /* Remove link underline */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-}
-
-.icon-item:hover .icon-wrapper {
-  transform: scale(0.95);
+  margin: 2rem 0;
 }
 
 .icon-wrapper {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  border: 1px solid #673ab7;
+  width: 80px; /* Increased from 40px */
+  height: 80px; /* Increased from 40px */
+  border-radius: 16px; /* Increased for better proportion */
+  border: 2px solid #673ab7; /* Increased border width */
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
 }
 
+.icon-wrapper svg {
+  width: 40px; /* Increased icon size */
+  height: 40px; /* Increased icon size */
+}
+
+.icon-item {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* Increased gap */
+}
+
 .icon-item span {
-  font-size: 12px;
+  font-size: 16px; /* Increased font size */
   color: #333;
   text-align: center;
+  font-weight: 500;
 }
 
-/* Tablet */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .iconsgrid {
-    display: grid; /* Switch to grid for tablet */
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    padding: 0.5rem;
-  }
-  .icon-item span {
-    padding-top: 1rem;
-  }
-}
-
-/* Mobile */
-@media (max-width: 480px) {
-  .iconsgrid {
-    grid-template-columns: repeat(3, 1fr); /* 2 columns for mobile */
-    gap: 2rem;
-  }
-  .icon-item span {
-    padding-top: 1rem;
-  }
-
   .icon-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+
+  .icon-wrapper svg {
     width: 35px;
     height: 35px;
   }
+}
+
+@media (max-width: 480px) {
+  .icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .icon-wrapper svg {
+    width: 30px;
+    height: 30px;
+  }
 
   .icon-item span {
-    font-size: 11px;
+    font-size: 14px;
   }
 }
 
@@ -213,4 +207,21 @@
 
 .button-icon {
   font-size: 20px;
+}
+
+.instructionText {
+  color: #666;
+  font-size: 16px;
+  text-align: center;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+@media (max-width: 480px) {
+  .instructionText {
+    font-size: 14px;
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+  }
 }

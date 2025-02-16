@@ -14,24 +14,45 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export function TradingForm() {
-  const [paymentMethod, setPaymentMethod] = useState();
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [piAmount, setPiAmount] = useState(""); // Stores PI amount
+  const piRate = 65; // Fixed rate of $100 per Pi
 
+  // Calculate total price based on user input
+  const totalPrice = piAmount ? Number(piAmount) * piRate : 0;
   const renderPaymentInput = () => {
     switch (paymentMethod) {
       case "bank":
         return (
-          <div className="space-y-2">
-            <Label htmlFor="accountNumber" className="text-[#583A89] text-sm">
-              Bank Account Number:
-            </Label>
-            <Input
-              id="accountNumber"
-              type="text"
-              className="w-full border-[#583A89] hover:border-[#583A89]/80 focus:ring-[#583A89] rounded"
-              placeholder="Enter your account number"
-            />
+          <div className="space-y-4">
+            {/* Bank Name Field */}
+            <div className="space-y-2">
+              <Label htmlFor="bankName" className="text-[#583A89] text-sm">
+                Bank Name:
+              </Label>
+              <Input
+                id="bankName"
+                type="text"
+                className="w-full border-[#583A89] hover:border-[#583A89]/80 focus:ring-[#583A89] rounded"
+                placeholder="Enter your bank name"
+              />
+            </div>
+
+            {/* Bank Account Number Field */}
+            <div className="space-y-2">
+              <Label htmlFor="accountNumber" className="text-[#583A89] text-sm">
+                Bank Account Number:
+              </Label>
+              <Input
+                id="accountNumber"
+                type="text"
+                className="w-full border-[#583A89] hover:border-[#583A89]/80 focus:ring-[#583A89] rounded"
+                placeholder="Enter your account number"
+              />
+            </div>
           </div>
         );
+
       case "paypal":
         return (
           <div className="space-y-2">
@@ -46,6 +67,7 @@ export function TradingForm() {
             />
           </div>
         );
+
       case "crypto":
         return (
           <div className="space-y-2">
@@ -60,6 +82,7 @@ export function TradingForm() {
             />
           </div>
         );
+
       default:
         return null;
     }
@@ -82,15 +105,16 @@ export function TradingForm() {
                   <span className="text-8xl text-white font-bold">π</span>
                 </div>
 
-                {/* Rate display with proper spacing from floating icon */}
+                {/* Rate display */}
+                {/* Rate Display */}
                 <div className="text-center mt-16 mb-8">
                   <h2 className="text-[#583A89] text-2xl font-bold">
-                    Current PI coin Rate: 32.00 USD per coin
+                    Current PI coin Rate: $65 per coin
                   </h2>
                 </div>
 
-                {/* Form inputs container */}
                 <div className="w-full max-w-md space-y-6">
+                  {/* Number of PI Coins */}
                   <div className="space-y-2">
                     <Label htmlFor="coins" className="text-[#583A89] text-sm">
                       Number of PI Coins to sell (minimum 1):
@@ -99,11 +123,23 @@ export function TradingForm() {
                       id="coins"
                       type="number"
                       min="1"
+                      value={piAmount}
+                      onChange={(e) => setPiAmount(e.target.value)}
                       className="w-full border-[#583A89] hover:border-[#583A89]/80 focus:ring-[#583A89] rounded"
                       placeholder="Enter amount"
                     />
                   </div>
 
+                  {/* Calculated Total Price */}
+                  {piAmount && (
+                    <div className="text-center mt-4">
+                      <h3 className="text-xl font-semibold text-[#583A89]">
+                        Total Amount: ${totalPrice.toFixed(2)}
+                      </h3>
+                    </div>
+                  )}
+
+                  {/* Currency Selection */}
                   <div className="space-y-2">
                     <Label
                       htmlFor="currency"
@@ -116,16 +152,53 @@ export function TradingForm() {
                         id="currency"
                         className="w-full border-[#583A89] hover:border-[#583A89]/80 focus:ring-[#583A89] rounded"
                       >
-                        <SelectValue placeholder="USD" />
+                        <SelectValue placeholder="Select Currency" />
                       </SelectTrigger>
+
                       <SelectContent>
-                        <SelectItem value="usd">USD</SelectItem>
-                        <SelectItem value="eur">EUR</SelectItem>
-                        <SelectItem value="gbp">GBP</SelectItem>
+                        <SelectItem value="aud">
+                          AUD - Australian Dollar
+                        </SelectItem>
+                        <SelectItem value="brl">
+                          BRL - Brazilian Real
+                        </SelectItem>
+                        <SelectItem value="cad">
+                          CAD - Canadian Dollar
+                        </SelectItem>
+                        <SelectItem value="chf">CHF - Swiss Franc</SelectItem>
+                        <SelectItem value="cny">CNY - Chinese Yuan</SelectItem>
+                        <SelectItem value="eur">EUR - Euro</SelectItem>
+                        <SelectItem value="gbp">GBP - British Pound</SelectItem>
+                        <SelectItem value="hkd">
+                          HKD - Hong Kong Dollar
+                        </SelectItem>
+                        <SelectItem value="inr">INR - Indian Rupee</SelectItem>
+                        <SelectItem value="jpy">JPY - Japanese Yen</SelectItem>
+                        <SelectItem value="krw">
+                          KRW - South Korean Won
+                        </SelectItem>
+                        <SelectItem value="mxn">MXN - Mexican Peso</SelectItem>
+                        <SelectItem value="nok">
+                          NOK - Norwegian Krone
+                        </SelectItem>
+                        <SelectItem value="nzd">
+                          NZD - New Zealand Dollar
+                        </SelectItem>
+                        <SelectItem value="rub">RUB - Russian Ruble</SelectItem>
+                        <SelectItem value="sek">SEK - Swedish Krona</SelectItem>
+                        <SelectItem value="sgd">
+                          SGD - Singapore Dollar
+                        </SelectItem>
+                        <SelectItem value="try">TRY - Turkish Lira</SelectItem>
+                        <SelectItem value="usd">USD - US Dollar</SelectItem>
+                        <SelectItem value="zar">
+                          ZAR - South African Rand
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
+                  {/* Payment Method Selection */}
                   <div className="space-y-2">
                     <Label htmlFor="payment" className="text-[#583A89] text-sm">
                       Choose how to receive money:
@@ -145,8 +218,10 @@ export function TradingForm() {
                     </Select>
                   </div>
 
+                  {/* Dynamic Payment Input */}
                   {renderPaymentInput()}
 
+                  {/* Submit Button (Only shows when a payment method is selected) */}
                   {paymentMethod && (
                     <div className="pt-4">
                       <Link href="/pi/validate" passHref>

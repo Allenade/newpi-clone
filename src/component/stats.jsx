@@ -51,26 +51,31 @@ export function Stats() {
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
   return (
-    <div className="max-w-3xl mx-auto mt-6 relative z-10">
+    <div className="max-w-3xl mx-auto mt-6 px-4 sm:px-6 lg:px-8">
       {/* White border container */}
       <div className="bg-white p-[1px] rounded-lg shadow-sm">
         {/* Purple stats container */}
-        <div className="bg-[#9F4EE1] rounded-lg flex divide-x divide-white/20">
-          <div className="flex-1 p-6 text-center">
-            <div className="text-2xl font-bold text-white">
-              <span>{displayedActiveUser}</span>
+        <div className="bg-[#9F4EE1] rounded-lg grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/20">
+          {/* Active Users */}
+          <div className="flex flex-col items-center py-4 sm:py-6">
+            <div className="text-2xl sm:text-3xl font-bold text-white">
+              {displayedActiveUser.toLocaleString()}
             </div>
             <div className="text-sm text-white/90">Active Users</div>
           </div>
-          <div className="flex-1 p-6 text-center border-l border-white/20">
-            <div className="text-2xl font-bold text-white">
-              <span>{displayedTotalTrade}</span>
+
+          {/* Total Trades */}
+          <div className="flex flex-col items-center py-4 sm:py-6">
+            <div className="text-2xl sm:text-3xl font-bold text-white">
+              {displayedTotalTrade.toLocaleString()}
             </div>
             <div className="text-sm text-white/90">Total Trades</div>
           </div>
-          <div className="flex-1 p-6 text-center border-l border-white/20">
-            <div className="text-2xl font-bold text-white">
-              <span>{displayedTotalUSDT}</span>
+
+          {/* Total USDT Paid */}
+          <div className="flex flex-col items-center py-4 sm:py-6">
+            <div className="text-2xl sm:text-3xl font-bold text-white">
+              {displayedTotalUSDT.toLocaleString()}
             </div>
             <div className="text-sm text-white/90">Total USDT Paid</div>
           </div>
